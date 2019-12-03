@@ -2,28 +2,15 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"strconv"
 	"strings"
+
+	"github.com/willynogs/advent-of-code-2019/helpers"
 )
 
 func loadModuleMasses() []int {
-	data, err := ioutil.ReadFile("./input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	arr := strings.Split(string(data), "\n")
-	var result []int
-	for _, v := range arr {
-		conv, err := strconv.Atoi(v)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		result = append(result, conv)
-	}
-
+	input := helpers.LoadInput()
+	arr := strings.Split(string(input), "\n")
+	result := helpers.StringArrayToIntArray(arr)
 	return result
 }
 
