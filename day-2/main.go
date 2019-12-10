@@ -14,12 +14,39 @@ func loadIntCode() []int {
 	return result
 }
 
-func main() {
+func runIntCode(noun int, verb int) int {
 	intCode := loadIntCode()
 
-	for i, v := range intCode {
+	intCode[1] = noun
+	intCode[2] = verb
 
+	var operation int
+	var newValue int
+	for i, v := range intCode {
+		if i%4 == 0 {
+			if v == 99 {
+				break
+			} else {
+				operation = v
+			}
+		} else if i%4 == 1 {
+			newValue = intCode[v]
+		} else if i%4 == 2 {
+			if operation == 1 {
+				newValue += intCode[v]
+			} else if operation == 2 {
+				newValue *= intCode[v]
+			}
+		} else if i%4 == 3 {
+			intCode[v] = newValue
+		}
 	}
 
-	fmt.Println(intCode)
+	return intCode[0]
+}
+
+func main() {
+	result := runIntCode(12, 2)
+
+	fmt.Println(result)
 }
